@@ -3,18 +3,16 @@ import tagsReducer from "./tagsSlice";
 import createSagaMiddleware from "redux-saga";
 import rootSaga from "../saga/rootSaga";
 
-const sagaMiddleWare = createSagaMiddleware();
+const sagaMiddleware = createSagaMiddleware();
 
 const store = configureStore({
   reducer: {
     tags: tagsReducer
   },
-  middleware: (getDefaultMiddleware) => [
-    ...getDefaultMiddleware(),
-    sagaMiddleWare
-  ]
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(sagaMiddleware)
 });
 
-sagaMiddleWare.run(rootSaga);
+sagaMiddleware.run(rootSaga);
 
 export default store;
