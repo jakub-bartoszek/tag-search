@@ -4,9 +4,9 @@ import { fetchTagsFailure, fetchTagsSuccess } from "../redux/tagsSlice";
 
 function* fetchTagsSagaHandler() {
  try {
-  const tags = yield call(fetchTags);
-  yield put(fetchTagsSuccess([]));
- } catch (error) {
+  const tags: [] = yield call(fetchTags);
+  yield put(fetchTagsSuccess(tags));
+ } catch (error: any) {
   yield put(fetchTagsFailure(error.message));
  }
 }
