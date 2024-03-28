@@ -1,6 +1,7 @@
 {
   "name": "tag-search",
   "private": true,
+  "homepage": "https://jakub-bartoszek.github.io/Tag-search/",
   "version": "0.0.0",
   "type": "module",
   "scripts": {
