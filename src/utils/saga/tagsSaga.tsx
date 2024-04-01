@@ -3,7 +3,7 @@ import fetchTags from "./fetchTags";
 import { fetchTagsFailure, fetchTagsSuccess } from "../redux/tagsSlice";
 import { PayloadAction } from "@reduxjs/toolkit";
 
-function* fetchTagsSagaHandler({ payload }: PayloadAction<{ pageSize: string }>) {
+function* fetchTagsSagaHandler({ payload }: PayloadAction<{ pageSize: string; order: string }>) {
  try {
   const params = new URLSearchParams(payload);
 

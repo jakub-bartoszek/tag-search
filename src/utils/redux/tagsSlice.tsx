@@ -17,8 +17,11 @@ const tagsSlice = createSlice({
  name: "tags",
  initialState,
  reducers: {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  fetchTagsStart: (state: TagsState, _action: PayloadAction<{ pageSize: string }>) => {
+  fetchTagsStart: (
+   state: TagsState,
+   // eslint-disable-next-line @typescript-eslint/no-unused-vars
+   _action: PayloadAction<{ pageSize: string; order: string }>
+  ) => {
    state.loading = true;
    state.error = null;
   },
