@@ -1,21 +1,27 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { fetchTagsStart, selectError, selectLoading, selectTags } from "./utils/redux/tagsSlice";
 import { useDispatch, useSelector } from "react-redux";
-import { useLocation, useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
+
+export interface Tag {
+ id: string;
+ name: string;
+}
 
 function App() {
  const dispatch = useDispatch();
- const tags = useSelector(selectTags);
+ const tags: Tag[] = useSelector(selectTags);
  const loading = useSelector(selectLoading);
  const error = useSelector(selectError);
  const [searchParams, setSearchParams] = useSearchParams();
- const location = useLocation();
+ const [pageSize, setPageSize] = useState(searchParams.get("pagesize") || "20");
 
  useEffect(() => {
-  dispatch(fetchTagsStart(location.search));
- }, [location.search, dispatch]);
+  dispatch(fetchTagsStart({ pageSize: String(pageSize) }));
+ }, [pageSize]);
 
  const handlePageSizeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+  setPageSize(e.target.value);
   searchParams.set("pagesize", e.target.value);
   setSearchParams(searchParams);
  };
@@ -35,7 +41,7 @@ function App() {
      <label htmlFor="pageSize">Page size:</label>
      <select
       id="pageSize"
-      value={searchParams.get("pagesize") || "20"}
+      value={pageSize}
       onChange={handlePageSizeChange}
      >
       {[...Array(20)].map((_, index) => (

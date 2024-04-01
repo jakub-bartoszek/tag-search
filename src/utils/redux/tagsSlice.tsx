@@ -1,7 +1,8 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { Tag } from "../../App";
 
 interface TagsState {
- tags: string[];
+ tags: Tag[];
  loading: boolean;
  error: string | null;
 }
@@ -16,15 +17,16 @@ const tagsSlice = createSlice({
  name: "tags",
  initialState,
  reducers: {
-  fetchTagsStart(state) {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  fetchTagsStart: (state: TagsState, _action: PayloadAction<{ pageSize: string }>) => {
    state.loading = true;
    state.error = null;
   },
-  fetchTagsSuccess(state, action: PayloadAction<string[]>) {
+  fetchTagsSuccess: (state: TagsState, action: PayloadAction<Tag[]>) => {
    state.loading = false;
    state.tags = action.payload;
   },
-  fetchTagsFailure(state, action: PayloadAction<string>) {
+  fetchTagsFailure: (state: TagsState, action: PayloadAction<string>) => {
    state.loading = false;
    state.error = action.payload;
   }

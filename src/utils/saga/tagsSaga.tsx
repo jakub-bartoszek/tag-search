@@ -1,8 +1,9 @@
 import { call, put, takeLatest } from "redux-saga/effects";
 import fetchTags from "./fetchTags";
 import { fetchTagsFailure, fetchTagsSuccess } from "../redux/tagsSlice";
+import { PayloadAction } from "@reduxjs/toolkit";
 
-function* fetchTagsSagaHandler({ payload }) {
+function* fetchTagsSagaHandler({ payload }: PayloadAction<{ pageSize: string }>) {
  try {
   const params = new URLSearchParams(payload);
 
