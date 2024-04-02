@@ -4,6 +4,7 @@ import App from "./App.tsx";
 import { Provider } from "react-redux";
 import store from "./utils/redux/store.tsx";
 import { HashRouter } from "react-router-dom";
+import "./main.css";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
  <React.StrictMode>
