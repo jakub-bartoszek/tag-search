@@ -1,29 +1,18 @@
 import { useEffect, useState } from "react";
-import { fetchTagsStart, selectError, selectLoading, selectTags } from "./utils/redux/tagsSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useSearchParams } from "react-router-dom";
-import {
- Select,
- MenuItem,
- ListItem,
- List,
- Container,
- Box,
- Typography,
- CircularProgress,
- TextField,
- Button
-} from "@mui/material";
-
-export interface Tag {
- id: string;
- name: string;
- count: string;
-}
+import { fetchTagsStart, selectError, selectLoading, selectTags } from "./utils/redux/tagsSlice";
+import { Container, Typography, Box, SelectChangeEvent } from "@mui/material";
+import TagInteractionPanel from "./components/TagInteractionPanel";
+import Error from "./components/Error";
+import Loader from "./components/Loader";
+import NoResults from "./components/NoResults";
+import Pagination from "./components/Pagination";
+import TagList from "./components/TagList";
 
 function App() {
  const dispatch = useDispatch();
- const tags: Tag[] = useSelector(selectTags);
+ const tags = useSelector(selectTags);
  const loading = useSelector(selectLoading);
  const error = useSelector(selectError);
  const [searchParams, setSearchParams] = useSearchParams();
@@ -33,236 +22,103 @@ function App() {
  const [page, setPage] = useState(parseInt(searchParams.get("page") || "1"));
 
  useEffect(() => {
-  dispatch(
-   fetchTagsStart({
-    pageSize: String(pageSize),
-    order: String(order),
-    inName: String(inName),
-    page: String(page)
-   })
-  );
- }, [dispatch, pageSize, order, page]);
+  dispatch(fetchTagsStart(getSearchParams()));
+ }, [dispatch, searchParams]);
 
- useEffect(() => {
-  window.scrollTo(0, 0);
- }, [page]);
+ const getSearchParams = () => {
+  return {
+   pageSize: String(pageSize),
+   order: String(order),
+   inName: String(inName),
+   page: String(page)
+  };
+ };
 
- useEffect(() => {
-  setPage(1);
- }, [pageSize, order, inName]);
+ const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  e.preventDefault();
+  setSearchParams(searchParams);
+  dispatch(fetchTagsStart(getSearchParams()));
+ };
 
- const handlePageSizeChange = (e) => {
+ const handlePageSizeChange = (e: SelectChangeEvent<string>) => {
   const value = e.target.value;
   setPageSize(value);
   searchParams.set("pagesize", value);
   setSearchParams(searchParams);
  };
 
- const handleOrderChange = (e) => {
+ const handleOrderChange = (e: SelectChangeEvent<string>) => {
   const value = e.target.value;
   setOrder(value);
   searchParams.set("order", value);
   setSearchParams(searchParams);
  };
 
- const handleFormSubmit = (e) => {
-  e.preventDefault();
-  searchParams.set("inname", inName);
-  setSearchParams(searchParams);
-
-  dispatch(
-   fetchTagsStart({
-    pageSize: String(pageSize),
-    order: String(order),
-    inName: String(inName),
-    page: String(page)
-   })
-  );
- };
-
- const handlePageChange = (newPage) => {
+ const handlePageChange = (newPage: number) => {
   setPage(newPage);
-  searchParams.set("page", newPage);
+  searchParams.set("page", newPage.toString());
   setSearchParams(searchParams);
  };
 
  const renderContent = () => {
   if (error) {
-   return (
-    <Box
-     display={"flex"}
-     alignItems={"center"}
-     justifyContent={"center"}
-     height={"100%"}
-    >
-     <Typography
-      variant="body1"
-      color="error"
-     >
-      {error}
-     </Typography>
-    </Box>
-   );
+   return <Error error={error} />;
   }
 
   if (loading) {
-   return (
-    <Box
-     display={"flex"}
-     alignItems={"center"}
-     justifyContent={"center"}
-     height={"100%"}
-    >
-     <CircularProgress />
-    </Box>
-   );
+   return <Loader />;
   }
 
   if (tags.length === 0) {
-   return (
-    <Box
-     display={"flex"}
-     alignItems={"center"}
-     justifyContent={"center"}
-     height={"100%"}
-    >
-     <Typography
-      variant="body1"
-      color="GrayText"
-     >
-      No tags found...
-     </Typography>
-    </Box>
-   );
+   return <NoResults />;
   }
 
-  if (tags) {
-   return (
-    <Box>
-     <Box
-      display={"flex"}
-      justifyContent={"space-between"}
+  return (
+   <Box>
+    <Box
+     display={"flex"}
+     justifyContent={"space-between"}
+    >
+     <Typography
+      variant="subtitle1"
+      fontWeight="bold"
      >
-      <Typography
-       variant="subtitle1"
-       fontWeight="bold"
-      >
-       Name
-      </Typography>
-      <Typography
-       variant="subtitle1"
-       fontWeight="bold"
-      >
-       Count
-      </Typography>
-     </Box>
-     <List>
-      {tags.map((tag, index) => (
-       <ListItem
-        key={tag.id}
-        sx={{
-         display: "flex",
-         justifyContent: "space-between",
-         paddingX: 0,
-         borderBottom: index !== tags.length - 1 ? "1px solid #ccc" : "none"
-        }}
-       >
-        <Typography>{tag.name}</Typography>
-        <Typography>{tag.count}</Typography>
-       </ListItem>
-      ))}
-     </List>
-     <Box
-      display={"flex"}
-      alignItems={"center"}
-      justifyContent={"center"}
-      marginTop={2}
-      gap={2}
+      Name
+     </Typography>
+     <Typography
+      variant="subtitle1"
+      fontWeight="bold"
      >
-      <Button
-       disabled={page === 1}
-       onClick={() => handlePageChange(page - 1)}
-       variant="outlined"
-      >
-       &#11164;
-      </Button>
-      <Typography variant="subtitle1">{page}</Typography>
-      <Button
-       onClick={() => handlePageChange(page + 1)}
-       variant="outlined"
-      >
-       &#11166;
-      </Button>
-     </Box>
+      Count
+     </Typography>
     </Box>
-   );
-  }
+    <TagList tags={tags} />
+    <Pagination
+     page={page}
+     handlePageChange={handlePageChange}
+    />
+   </Box>
+  );
  };
 
  return (
   <Container sx={{ minHeight: "100dvh", padding: "16px" }}>
-   <Box padding={0}>
-    <Typography
-     variant="h4"
-     align="center"
-    >
-     Tag Explorer
-    </Typography>
-    <form onSubmit={handleFormSubmit}>
-     <Box
-      display={"flex"}
-      alignItems={"center"}
-     >
-      <TextField
-       label="Search by name"
-       variant="outlined"
-       fullWidth
-       value={inName}
-       onChange={(e) => setInName(e.target.value)}
-       margin="normal"
-      />
-     </Box>
-    </form>
-    <Box
-     display="flex"
-     alignItems="center"
-     justifyContent="space-between"
-     marginBottom={2}
-    >
-     <Box>
-      <Typography variant="subtitle1">Page Size</Typography>
-      <Select
-       label="Page Size"
-       value={pageSize}
-       onChange={handlePageSizeChange}
-       variant="outlined"
-       fullWidth
-      >
-       {[...Array(100)].map((_, index) => (
-        <MenuItem
-         key={index + 1}
-         value={(index + 1).toString()}
-        >
-         {index + 1}
-        </MenuItem>
-       ))}
-      </Select>
-     </Box>
-     <Box>
-      <Typography variant="subtitle1">Sort Type</Typography>
-      <Select
-       value={order}
-       onChange={handleOrderChange}
-       variant="outlined"
-       fullWidth
-      >
-       <MenuItem value="desc">Descending</MenuItem>
-       <MenuItem value="asc">Ascending</MenuItem>
-      </Select>
-     </Box>
-    </Box>
-    {renderContent()}
-   </Box>
+   <Typography
+    variant="h4"
+    align="center"
+   >
+    Tag Explorer
+   </Typography>
+   <TagInteractionPanel
+    pageSize={pageSize}
+    handlePageSizeChange={handlePageSizeChange}
+    order={order}
+    handleOrderChange={handleOrderChange}
+    inName={inName}
+    setInName={setInName}
+    handleFormSubmit={handleFormSubmit}
+   />
+   {renderContent()}
   </Container>
  );
 }
