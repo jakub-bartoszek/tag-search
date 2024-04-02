@@ -7,7 +7,7 @@ interface TagInteractionPanelProps {
  setInName: React.Dispatch<React.SetStateAction<string>>;
  handlePageSizeChange: (e: SelectChangeEvent<string>, child: React.ReactNode) => void;
  handleOrderChange: (e: SelectChangeEvent<string>, child: React.ReactNode) => void;
- handleFormSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
+ handleFormSubmit: (e: React.FormEvent<HTMLFormElement>, inName: string) => void;
 }
 
 const TagInteractionPanel = ({
@@ -21,7 +21,7 @@ const TagInteractionPanel = ({
 }: TagInteractionPanelProps) => {
  return (
   <>
-   <form onSubmit={handleFormSubmit}>
+   <form onSubmit={(e) => handleFormSubmit(e, inName)}>
     <Box
      display={"flex"}
      alignItems={"center"}
