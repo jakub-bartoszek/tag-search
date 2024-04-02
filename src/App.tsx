@@ -34,10 +34,11 @@ function App() {
   };
  };
 
- const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+ const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>, inName: string) => {
   e.preventDefault();
+  setInName(inName);
+  searchParams.set("inname", inName);
   setSearchParams(searchParams);
-  dispatch(fetchTagsStart(getSearchParams()));
  };
 
  const handlePageSizeChange = (e: SelectChangeEvent<string>) => {
