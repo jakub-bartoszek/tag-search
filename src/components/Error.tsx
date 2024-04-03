@@ -1,6 +1,6 @@
 import { Box, Typography } from "@mui/material";
 
-interface ErrorProps {
+export interface ErrorProps {
  error: string;
 }
 
@@ -15,7 +15,7 @@ const Error = ({ error }: ErrorProps) => (
    variant="body1"
    color="error"
   >
-   {error}
+   Sorry, error occurred. {`(${error})`}
   </Typography>
  </Box>
 );

@@ -1,6 +1,6 @@
 import { Typography, Box, Select, MenuItem, TextField, SelectChangeEvent } from "@mui/material";
 
-interface TagInteractionPanelProps {
+export interface TagInteractionPanelProps {
  pageSize: string;
  order: string;
  inName: string;

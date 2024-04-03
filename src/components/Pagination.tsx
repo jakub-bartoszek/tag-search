@@ -1,6 +1,6 @@
 import { Box, Button, Typography } from "@mui/material";
 
-interface PaginationProps {
+export interface PaginationProps {
  page: number;
  handlePageChange: (newPage: number) => void;
 }
