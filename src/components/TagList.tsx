@@ -10,7 +10,7 @@ const TagList = ({ tags }: TagListProps) => {
   <List>
    {tags.map((tag, index) => (
     <ListItem
-     key={tag.id}
+     key={index}
      sx={{
       display: "flex",
       justifyContent: "space-between",
