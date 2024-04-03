@@ -1,20 +1,24 @@
-import { Typography, Box, Select, MenuItem, TextField, SelectChangeEvent } from "@mui/material";
+import { Box, Select, MenuItem, TextField, SelectChangeEvent, Button } from "@mui/material";
 
 export interface TagInteractionPanelProps {
  pageSize: string;
  order: string;
+ sort: string;
  inName: string;
  setInName: React.Dispatch<React.SetStateAction<string>>;
+ handleSortChange: (e: SelectChangeEvent<string>, child: React.ReactNode) => void;
  handlePageSizeChange: (e: SelectChangeEvent<string>, child: React.ReactNode) => void;
- handleOrderChange: (e: SelectChangeEvent<string>, child: React.ReactNode) => void;
+ handleOrderChange: () => void;
  handleFormSubmit: (e: React.FormEvent<HTMLFormElement>, inName: string) => void;
 }
 
 const TagInteractionPanel = ({
  pageSize,
  order,
+ sort,
  inName,
  setInName,
+ handleSortChange,
  handlePageSizeChange,
  handleOrderChange,
  handleFormSubmit
@@ -43,7 +47,6 @@ const TagInteractionPanel = ({
     marginBottom={2}
    >
     <Box>
-     <Typography variant="subtitle1">Page Size</Typography>
      <Select
       label="Page Size"
       value={pageSize}
@@ -61,17 +64,31 @@ const TagInteractionPanel = ({
       ))}
      </Select>
     </Box>
-    <Box>
-     <Typography variant="subtitle1">Sort Type</Typography>
-     <Select
-      value={order}
-      onChange={handleOrderChange}
-      variant="outlined"
-      fullWidth
-     >
-      <MenuItem value="desc">Descending</MenuItem>
-      <MenuItem value="asc">Ascending</MenuItem>
-     </Select>
+    <Box
+     display={"flex"}
+     height={"48px"}
+    >
+     <Box>
+      <Select
+       sx={{ height: "48px" }}
+       value={sort}
+       onChange={handleSortChange}
+       variant="outlined"
+       fullWidth
+      >
+       <MenuItem value="popular">Popular</MenuItem>
+       <MenuItem value="activity">Activity</MenuItem>
+       <MenuItem value="name">Name</MenuItem>
+      </Select>
+     </Box>
+     <Box>
+      <Button
+       sx={{ height: "48px", fontSize: "24px" }}
+       onClick={handleOrderChange}
+      >
+       {order === "desc" ? "🠋" : "🠉"}
+      </Button>{" "}
+     </Box>
     </Box>
    </Box>
   </>
