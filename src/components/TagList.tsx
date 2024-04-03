@@ -1,7 +1,7 @@
 import { List, ListItem, Typography } from "@mui/material";
 import { Tag } from "../App";
 
-interface TagListProps {
+export interface TagListProps {
  tags: Tag[];
 }
 
