@@ -1,30 +1,27 @@
-# React + TypeScript + Vite
+# Tag Search
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Aplikacja "Tag Search" umożliwia wyszukiwanie tagów ze Stack Overflow. Pozwala na przeszukiwanie tagów po nazwie, zmianę liczby wyświetlanych elementów na stronie, typu sortowania oraz przewijanie stron.
 
-Currently, two official plugins are available:
+## Uruchomienie
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Aby uruchomić aplikację, wykonaj następujące kroki:
 
-## Expanding the ESLint configuration
+1. Upewnij się, że masz zainstalowany Node.js na swoim komputerze.
+2. Sklonuj to repozytorium na swój komputer.
+3. Przejdź do głównego katalogu aplikacji za pomocą wiersza poleceń.
+4. Uruchom następujące polecenie, aby zainstalować wszystkie wymagane zależności: `npm install`
+5. Po zainstalowaniu zależności, uruchom aplikację za pomocą polecenia: `npm start`
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+Aplikacja zostanie uruchomiona w przeglądarce internetowej pod adresem `http://localhost:5173`.
 
-- Configure the top-level `parserOptions` property like this:
+## Storybook
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+Aby uruchomić Storybook, wykonaj następujące kroki:
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+1. Upewnij się, że wszystkie zależności zostały zainstalowane poprzez wykonanie polecenia `npm install` (jeśli jeszcze tego nie zrobiłeś).
+2. Uruchom Storybook za pomocą polecenia: `npm run storybook`
+
+Storybook zostanie uruchomiony w przeglądarce internetowej pod adresem `http://localhost:6006`.
+
+
+
