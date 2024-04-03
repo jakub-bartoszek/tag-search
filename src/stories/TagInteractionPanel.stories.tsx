@@ -25,6 +25,7 @@ const Template: StoryFn<TagInteractionPanelProps> = (args) => {
 
  const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>, inName: string) => {
   e.preventDefault();
+  setInName(inName);
  };
 
  const handleSortChange = (e: SelectChangeEvent<string>) => {
