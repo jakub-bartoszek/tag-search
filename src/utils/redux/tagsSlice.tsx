@@ -3,12 +3,14 @@ import { Tag } from "../../App";
 
 interface TagsState {
  tags: Tag[];
+ hasMorePages: boolean;
  loading: boolean;
  error: string | null;
 }
 
 const initialState: TagsState = {
  tags: [],
+ hasMorePages: true,
  loading: false,
  error: null
 };
@@ -32,13 +34,18 @@ const tagsSlice = createSlice({
   fetchTagsFailure: (state: TagsState, action: PayloadAction<string>) => {
    state.loading = false;
    state.error = action.payload;
+  },
+  setHasMorePages: (state: TagsState, action: PayloadAction<boolean>) => {
+   state.hasMorePages = action.payload;
   }
  }
 });
 
-export const { fetchTagsStart, fetchTagsSuccess, fetchTagsFailure } = tagsSlice.actions;
+export const { fetchTagsStart, fetchTagsSuccess, fetchTagsFailure, setHasMorePages } =
+ tagsSlice.actions;
 
 export const selectTags = (state: { tags: TagsState }) => state.tags.tags;
+export const selectHasMorePages = (state: { tags: TagsState }) => state.tags.hasMorePages;
 export const selectLoading = (state: { tags: TagsState }) => state.tags.loading;
 export const selectError = (state: { tags: TagsState }) => state.tags.error;
 
