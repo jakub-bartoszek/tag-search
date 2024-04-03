@@ -32,7 +32,7 @@ function App() {
  const [pageSize, setPageSize] = useState(searchParams.get("pagesize") || "20");
  const [order, setOrder] = useState(searchParams.get("order") || "desc");
  const [inName, setInName] = useState(searchParams.get("inname") || "");
- const [sort, setSort] = useState(searchParams.get("sort") || "");
+ const [sort, setSort] = useState(searchParams.get("sort") || "popular");
  const [page, setPage] = useState(parseInt(searchParams.get("page") || "1"));
 
  useEffect(() => {
