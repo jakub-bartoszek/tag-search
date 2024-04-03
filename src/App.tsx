@@ -11,9 +11,9 @@ import Pagination from "./components/Pagination";
 import TagList from "./components/TagList";
 
 export interface Tag {
- id: string;
+ id: number;
  name: string;
- count: string;
+ count: number;
 }
 
 function App() {
