@@ -1,15 +1,12 @@
 import { Box, Button, Typography } from "@mui/material";
-import { selectHasMorePages } from "../utils/redux/tagsSlice";
-import { useSelector } from "react-redux";
 
 export interface PaginationProps {
  page: number;
  handlePageChange: (newPage: number) => void;
+ hasMorePages: boolean;
 }
 
-const Pagination = ({ page, handlePageChange }: PaginationProps) => {
- const hasMorePages = useSelector(selectHasMorePages);
-
+const Pagination = ({ page, handlePageChange, hasMorePages }: PaginationProps) => {
  return (
   <Box
    display={"flex"}

@@ -1,7 +1,13 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useSearchParams } from "react-router-dom";
-import { fetchTagsStart, selectError, selectLoading, selectTags } from "./utils/redux/tagsSlice";
+import {
+ fetchTagsStart,
+ selectError,
+ selectHasMorePages,
+ selectLoading,
+ selectTags
+} from "./utils/redux/tagsSlice";
 import { Container, Typography, Box, SelectChangeEvent } from "@mui/material";
 import TagInteractionPanel from "./components/TagInteractionPanel";
 import Error from "./components/Error";
@@ -21,6 +27,7 @@ function App() {
  const tags = useSelector(selectTags);
  const loading = useSelector(selectLoading);
  const error = useSelector(selectError);
+ const hasMorePages = useSelector(selectHasMorePages);
  const [searchParams, setSearchParams] = useSearchParams();
  const [pageSize, setPageSize] = useState(searchParams.get("pagesize") || "20");
  const [order, setOrder] = useState(searchParams.get("order") || "desc");
@@ -61,7 +68,7 @@ function App() {
   setOrder(newOrder);
   searchParams.set("order", newOrder);
   setSearchParams(searchParams);
-};
+ };
 
  const handleSortChange = (e: SelectChangeEvent<string>) => {
   const value = e.target.value;
@@ -112,6 +119,7 @@ function App() {
     <Pagination
      page={page}
      handlePageChange={handlePageChange}
+     hasMorePages={hasMorePages}
     />
    </Box>
   );
