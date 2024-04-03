@@ -114,7 +114,7 @@ function App() {
     variant="h4"
     align="center"
    >
-    Tag Explorer
+    Tag Search
    </Typography>
    <TagInteractionPanel
     pageSize={pageSize}
