@@ -10,6 +10,12 @@ import NoResults from "./components/NoResults";
 import Pagination from "./components/Pagination";
 import TagList from "./components/TagList";
 
+export interface Tag {
+ id: string;
+ name: string;
+ count: string;
+}
+
 function App() {
  const dispatch = useDispatch();
  const tags = useSelector(selectTags);
