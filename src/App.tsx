@@ -25,6 +25,7 @@ function App() {
  const [pageSize, setPageSize] = useState(searchParams.get("pagesize") || "20");
  const [order, setOrder] = useState(searchParams.get("order") || "desc");
  const [inName, setInName] = useState(searchParams.get("inname") || "");
+ const [sort, setSort] = useState(searchParams.get("sort") || "");
  const [page, setPage] = useState(parseInt(searchParams.get("page") || "1"));
 
  useEffect(() => {
@@ -35,6 +36,7 @@ function App() {
   return {
    pageSize: String(pageSize),
    order: String(order),
+   sort: String(sort),
    inName: String(inName),
    page: String(page)
   };
@@ -54,10 +56,17 @@ function App() {
   setSearchParams(searchParams);
  };
 
- const handleOrderChange = (e: SelectChangeEvent<string>) => {
+ const handleOrderChange = () => {
+  const newOrder = order === "desc" ? "asc" : "desc";
+  setOrder(newOrder);
+  searchParams.set("order", newOrder);
+  setSearchParams(searchParams);
+};
+
+ const handleSortChange = (e: SelectChangeEvent<string>) => {
   const value = e.target.value;
-  setOrder(value);
-  searchParams.set("order", value);
+  setSort(value);
+  searchParams.set("sort", value);
   setSearchParams(searchParams);
  };
 
@@ -121,6 +130,8 @@ function App() {
     handlePageSizeChange={handlePageSizeChange}
     order={order}
     handleOrderChange={handleOrderChange}
+    sort={sort}
+    handleSortChange={handleSortChange}
     inName={inName}
     setInName={setInName}
     handleFormSubmit={handleFormSubmit}
