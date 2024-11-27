@@ -1,27 +1,59 @@
 # Tag Search
 
-Aplikacja "Tag Search" umożliwia wyszukiwanie tagów ze Stack Overflow. Pozwala na przeszukiwanie tagów po nazwie, zmianę liczby wyświetlanych elementów na stronie, typu sortowania oraz przewijanie stron.
+The "Tag Search" application allows users to search for tags from Stack Overflow. It enables searching tags by name, adjusting the number of items displayed per page, changing the sorting type, and navigating through pages.
 
-## Uruchomienie
+[App is live here.](https://jakub-bartoszek.github.io/tag-search/)
 
-Aby uruchomić aplikację, wykonaj następujące kroki:
+## Table of Contents
 
-1. Upewnij się, że masz zainstalowany Node.js na swoim komputerze.
-2. Sklonuj to repozytorium na swój komputer.
-3. Przejdź do głównego katalogu aplikacji za pomocą wiersza poleceń.
-4. Uruchom następujące polecenie, aby zainstalować wszystkie wymagane zależności: `npm install`
-5. Po zainstalowaniu zależności, uruchom aplikację za pomocą polecenia: `npm start`
+- [Instalation](#instalation)
+- [Technologies used](#technologies-used)
+- [Storybook](#storybook)
+- [Contact](#contact)
 
-Aplikacja zostanie uruchomiona w przeglądarce internetowej pod adresem `http://localhost:5173`.
+## Instalation
+
+1. Clone the repository:
+
+   ```
+   git clone https://github.com/jakub-bartoszek/task-list.git
+   cd task-list
+   ```
+
+2. Install dependencies:
+   ```
+   npm install
+   ```
+3. Run application:
+   ```
+   npm start
+   ```
+
+## Technologies Used
+
+### Core Technologies
+
+- React
+
+### Libraries
+
+- Redux/Saga
+- React Router
+- Axios
 
 ## Storybook
 
-Aby uruchomić Storybook, wykonaj następujące kroki:
+To run Storybook, follow these steps:
 
-1. Upewnij się, że wszystkie zależności zostały zainstalowane poprzez wykonanie polecenia `npm install` (jeśli jeszcze tego nie zrobiłeś).
-2. Uruchom Storybook za pomocą polecenia: `npm run storybook`
+1. Make sure all dependencies are installed by running the command npm install (if you haven't done this already).
+2. Start Storybook with the following command: npm run storybook
 
-Storybook zostanie uruchomiony w przeglądarce internetowej pod adresem `http://localhost:6006`.
+Storybook will open in your web browser at http://localhost:6006.
 
+## Contact
 
+For issues, questions, or suggestions, please open an issue in the repository or contact:
 
+- Email: jakub.bartoszek.dev@gmail.com
+- Linkedin: [jbartoszek-dev](https://www.linkedin.com/in/jbartoszek-dev)
+- GitHub: [jakub-bartoszek](https://github.com/jakub-bartoszek)
