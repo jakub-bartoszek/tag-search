@@ -16,8 +16,8 @@ The "Tag Search" application allows users to search for tags from Stack Overflow
 1. Clone the repository:
 
    ```
-   git clone https://github.com/jakub-bartoszek/task-list.git
-   cd task-list
+   git clone https://github.com/jakub-bartoszek/tag-search.git
+   cd tag-search
    ```
 
 2. Install dependencies:
